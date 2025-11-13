@@ -11,6 +11,9 @@ importers:
       vue:
         specifier: ^3.5.22
         version: 3.5.24(typescript@5.9.3)
+      wavesurfer.js:
+        specifier: ^7.11.1
+        version: 7.11.1
     devDependencies:
       '@tsconfig/node22':
         specifier: ^22.0.2
@@ -1959,6 +1962,9 @@ packages:
   w3c-xmlserializer@5.0.0:
     resolution: {integrity: sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==}
     engines: {node: '>=18'}
+
+  wavesurfer.js@7.11.1:
+    resolution: {integrity: sha512-8Q+wwItpjJAlhQ7crQLtKwgfbqqczm5/wx+76K4PptP+MBAjB0OA78+A9OuLnULz/8GpAQ+fKM6s81DonEO0Sg==}
 
   webidl-conversions@8.0.0:
     resolution: {integrity: sha512-n4W4YFyz5JzOfQeA8oN7dUYpR+MBP3PIUsn2jLjWXwK5ASUzt0Jc/A5sAUZoCYFJRGF0FBKJ+1JjN43rNdsQzA==}
@@ -3936,6 +3942,8 @@ snapshots:
   w3c-xmlserializer@5.0.0:
     dependencies:
       xml-name-validator: 5.0.0
+
+  wavesurfer.js@7.11.1: {}
 
   webidl-conversions@8.0.0: {}
 
