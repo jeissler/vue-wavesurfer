@@ -9,7 +9,7 @@ const isPlaying = ref(false)
 <template>
   <header class="header">
     <div class="container">
-      <h1>Vue WaveSurfer</h1>
+      <h1>Vue WaveSurfer.js</h1>
     </div>
   </header>
 

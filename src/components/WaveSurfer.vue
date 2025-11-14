@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue'
-import WaveSurfer from 'wavesurfer.js'
+import WaveSurfer, { type WaveSurferOptions } from 'wavesurfer.js'
 
 const {
   url,
   isPlaying = false,
   mediaControls = true,
+  autoplay = false,
+  config = {},
 } = defineProps<{
   url: string
   isPlaying: boolean
   mediaControls?: boolean
+  autoplay?: boolean
+  config?: WaveSurferOptions
 }>()
 
 const wavesurfer = ref<WaveSurfer | null>(null)
-const element = useTemplateRef<HTMLDivElement>('element')
+const element = useTemplateRef('ws-element')
 
 function handleClick() {
   wavesurfer.value?.playPause()
@@ -23,11 +27,14 @@ onMounted(() => {
   wavesurfer.value = WaveSurfer.create({
     url,
     mediaControls,
+    autoplay,
     container: element.value!,
     waveColor: '#7FDDC4',
     progressColor: '#5FB8A0',
     cursorColor: '#2D5A4E',
     height: 200,
+    dragToSeek: true,
+    ...config,
     plugins: [],
   })
 })
@@ -51,7 +58,7 @@ watch(
 </script>
 
 <template>
-  <div ref="element" @click="handleClick" />
+  <div ref="ws-element" @click="handleClick" />
 </template>
 
 <style scoped></style>
