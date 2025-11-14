@@ -1,11 +1,34 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import WaveSurfer from './components/WaveSurfer.vue'
+import { ref } from 'vue'
+
+const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
+const isPlaying = ref(false)
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <header class="header">
+    <div class="container">
+      <h1>Vue WaveSurfer</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <WaveSurfer :is-playing="isPlaying" :url="defaultUrl" :media-controls="false" />
+    <!-- <WaveSurfer /> -->
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  background: violet;
+  color: purple;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+</style>
