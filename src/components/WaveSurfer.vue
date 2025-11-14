@@ -24,8 +24,9 @@ onMounted(() => {
     url,
     mediaControls,
     container: element.value!,
-    waveColor: 'violet',
-    progressColor: 'purple',
+    waveColor: '#7FDDC4',
+    progressColor: '#5FB8A0',
+    cursorColor: '#2D5A4E',
     height: 200,
     plugins: [],
   })

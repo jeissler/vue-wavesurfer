@@ -1,0 +1,27 @@
+:root {
+  --seafoam-primary: #7fddc4;
+  --seafoam-dark: #5fb8a0;
+  --seafoam-light: #b8f5e8;
+  --seafoam-bg: #e8f9f5;
+  --seafoam-text: #2d5a4e;
+  --seafoam-text-light: #4a7c6f;
+  --seafoam-progress: #6bc4b0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--seafoam-bg);
+  color: var(--seafoam-text);
+  line-height: 1.6;
+}
+
+#app {
+  min-height: 100vh;
+}
