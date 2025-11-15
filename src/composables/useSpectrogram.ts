@@ -14,7 +14,7 @@ export function useSpectrogram(options: SpectrogramPluginOptions = {}): {
     height: 200,
     //splitChannels: true,
     frequencyMin: 0,
-    frequencyMax: 20000,
+    frequencyMax: 4000,
     fftSamples: 1024,
     useWebWorker: true,
     // Frequency scale type:

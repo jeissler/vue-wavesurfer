@@ -13,7 +13,7 @@ const {
   isPlaying = false,
   mediaControls = true,
   autoplay = false,
-  height = 150,
+  height = 200,
   config = {},
   plugins = [],
 } = defineProps<{
