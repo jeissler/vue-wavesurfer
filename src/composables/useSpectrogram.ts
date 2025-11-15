@@ -3,12 +3,11 @@ import { ref, type Ref } from 'vue'
 import Spectrogram, {
   type SpectrogramPluginOptions,
 } from 'wavesurfer.js/dist/plugins/spectrogram.esm.js'
-import { type GenericPlugin } from 'wavesurfer.js/dist/base-plugin.js'
 
 export function useSpectrogram(options: SpectrogramPluginOptions = {}): {
-  spectrogram: Ref<GenericPlugin | null>
+  spectrogram: Ref<Spectrogram | null>
 } {
-  const spectrogram = ref<GenericPlugin | null>(null)
+  const spectrogram = ref<Spectrogram | null>(null)
 
   spectrogram.value = Spectrogram.create({
     labels: true,
@@ -48,6 +47,6 @@ export function useSpectrogram(options: SpectrogramPluginOptions = {}): {
   // TODO: add event listeners for loading state
 
   return {
-    spectrogram: spectrogram as Ref<GenericPlugin | null>,
+    spectrogram: spectrogram as Ref<Spectrogram | null>,
   }
 }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue'
 import WaveSurfer, { type WaveSurferOptions } from 'wavesurfer.js'
-import { type GenericPlugin } from 'wavesurfer.js/dist/base-plugin.js'
 import { useCssVar } from '@/composables/useCssVar'
+import { type GenericPlugin } from 'wavesurfer.js/dist/types/plugin/index.js'
 
 const waveColor = useCssVar('--seafoam-primary')
 const progressColor = useCssVar('--seafoam-dark')
