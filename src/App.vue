@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import WaveSurfer from './components/WaveSurfer.vue'
-import { ref } from 'vue'
+import { useSpectrogram } from './composables/useSpectrogram'
+import { ref, computed } from 'vue'
 
 const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
 const isPlaying = ref(false)
+const { spectrogram } = useSpectrogram()
+const plugins = computed(() => (spectrogram.value ? [spectrogram.value] : []))
 </script>
 
 <template>
@@ -14,8 +17,12 @@ const isPlaying = ref(false)
   </header>
 
   <main class="container">
-    <WaveSurfer :is-playing="isPlaying" :url="defaultUrl" :media-controls="false" />
-    <!-- <WaveSurfer /> -->
+    <WaveSurfer
+      :is-playing="isPlaying"
+      :url="defaultUrl"
+      :media-controls="false"
+      :plugins="plugins"
+    />
   </main>
 </template>
 

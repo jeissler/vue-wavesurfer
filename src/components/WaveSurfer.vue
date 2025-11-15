@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue'
 import WaveSurfer, { type WaveSurferOptions } from 'wavesurfer.js'
+import { type GenericPlugin } from 'wavesurfer.js/dist/base-plugin.js'
 import { useCssVar } from '@/composables/useCssVar'
 
 const waveColor = useCssVar('--seafoam-primary')
@@ -22,7 +23,7 @@ const {
   autoplay?: boolean
   config?: WaveSurferOptions
   height?: number
-  plugins?: Partial<WaveSurferOptions>['plugins']
+  plugins?: GenericPlugin[]
 }>()
 
 const wavesurfer = ref<WaveSurfer | null>(null)
@@ -44,7 +45,7 @@ onMounted(() => {
     progressColor,
     cursorColor,
     ...config,
-    ...plugins,
+    plugins,
   })
 })
 
