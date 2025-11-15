@@ -1,19 +1,28 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue'
 import WaveSurfer, { type WaveSurferOptions } from 'wavesurfer.js'
+import { useCssVar } from '@/composables/useCssVar'
+
+const waveColor = useCssVar('--seafoam-primary')
+const progressColor = useCssVar('--seafoam-dark')
+const cursorColor = useCssVar('--seafoam-light')
 
 const {
   url,
   isPlaying = false,
   mediaControls = true,
   autoplay = false,
+  height = 200,
   config = {},
+  plugins = [],
 } = defineProps<{
   url: string
   isPlaying: boolean
   mediaControls?: boolean
   autoplay?: boolean
   config?: WaveSurferOptions
+  height?: number
+  plugins?: Partial<WaveSurferOptions>['plugins']
 }>()
 
 const wavesurfer = ref<WaveSurfer | null>(null)
@@ -25,17 +34,17 @@ function handleClick() {
 
 onMounted(() => {
   wavesurfer.value = WaveSurfer.create({
+    container: element.value!,
+    dragToSeek: true,
+    height,
     url,
     mediaControls,
     autoplay,
-    container: element.value!,
-    waveColor: '#7FDDC4',
-    progressColor: '#5FB8A0',
-    cursorColor: '#2D5A4E',
-    height: 200,
-    dragToSeek: true,
+    waveColor,
+    progressColor,
+    cursorColor,
     ...config,
-    plugins: [],
+    ...plugins,
   })
 })
 
