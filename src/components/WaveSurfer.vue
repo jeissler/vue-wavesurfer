@@ -2,7 +2,7 @@
 import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue'
 import WaveSurfer, { type WaveSurferOptions } from 'wavesurfer.js'
 import { useCssVar } from '@/composables/useCssVar'
-import { type GenericPlugin } from 'wavesurfer.js/dist/types/plugin/index.js'
+import type { GenericPlugin } from 'wavesurfer.js/dist/base-plugin.js'
 
 const waveColor = useCssVar('--seafoam-primary')
 const progressColor = useCssVar('--seafoam-dark')
@@ -13,7 +13,7 @@ const {
   isPlaying = false,
   mediaControls = true,
   autoplay = false,
-  height = 200,
+  height = 150,
   config = {},
   plugins = [],
 } = defineProps<{
