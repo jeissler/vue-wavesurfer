@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import WaveSurfer from './components/WaveSurfer.vue'
+import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js'
 import { useSpectrogramPlugin } from './composables/useSpectrogramPlugin'
 import { useZoomPlugin } from './composables/useZoomPlugin'
+import { useCssVar } from './composables/useCssVar'
 import { ref, computed } from 'vue'
 
 const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
@@ -11,6 +13,12 @@ const { zoomPlugin } = useZoomPlugin()
 const plugins = computed(() => [
   ...(spectrogramPlugin.value ? [spectrogramPlugin.value] : []),
   ...(zoomPlugin.value ? [zoomPlugin.value] : []),
+  // Also add any other plugins directly
+  Minimap.create({
+    height: 30,
+    waveColor: useCssVar('--seafoam-primary'),
+    progressColor: useCssVar('--seafoam-progress'),
+  }),
 ])
 </script>
 
