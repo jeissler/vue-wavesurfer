@@ -4,12 +4,12 @@ import Spectrogram, {
   type SpectrogramPluginOptions,
 } from 'wavesurfer.js/dist/plugins/spectrogram.esm.js'
 
-export function useSpectrogram(options: SpectrogramPluginOptions = {}): {
-  spectrogram: Ref<Spectrogram | null>
+export function useSpectrogramPlugin(options: SpectrogramPluginOptions = {}): {
+  spectrogramPlugin: Ref<Spectrogram | null>
 } {
-  const spectrogram = ref<Spectrogram | null>(null)
+  const spectrogramPlugin = ref<Spectrogram | null>(null)
 
-  spectrogram.value = Spectrogram.create({
+  spectrogramPlugin.value = Spectrogram.create({
     labels: true,
     height: 200,
     //splitChannels: true,
@@ -47,6 +47,6 @@ export function useSpectrogram(options: SpectrogramPluginOptions = {}): {
   // TODO: add event listeners for loading state
 
   return {
-    spectrogram: spectrogram as Ref<Spectrogram | null>,
+    spectrogramPlugin: spectrogramPlugin as Ref<Spectrogram | null>,
   }
 }

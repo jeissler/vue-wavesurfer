@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import WaveSurfer from './components/WaveSurfer.vue'
-import { useSpectrogram } from './composables/useSpectrogram'
+import { useSpectrogramPlugin } from './composables/useSpectrogramPlugin'
+import { useZoomPlugin } from './composables/useZoomPlugin'
 import { ref, computed } from 'vue'
 
 const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
 const isPlaying = ref(false)
-const { spectrogram } = useSpectrogram()
-const plugins = computed(() => (spectrogram.value ? [spectrogram.value] : []))
+const { spectrogramPlugin } = useSpectrogramPlugin()
+const { zoomPlugin } = useZoomPlugin()
+const plugins = computed(() => [
+  ...(spectrogramPlugin.value ? [spectrogramPlugin.value] : []),
+  ...(zoomPlugin.value ? [zoomPlugin.value] : []),
+])
 </script>
 
 <template>
