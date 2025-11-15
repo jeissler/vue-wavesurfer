@@ -8,7 +8,7 @@ export function useZoomPlugin(options: ZoomPluginOptions = {}): {
 
   zoomPlugin.value = ZoomPlugin.create({
     scale: 0.25,
-    maxZoom: 10,
+    maxZoom: 100,
     ...options,
   })
 
