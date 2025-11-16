@@ -5,7 +5,10 @@
   --seafoam-bg: #e8f9f5;
   --seafoam-text: #2d5a4e;
   --seafoam-text-light: #4a7c6f;
-  --seafoam-progress: #6bc4b0;
+
+  --ws-wave: var(--seafoam-primary);
+  --ws-progress: var(--seafoam-dark);
+  --ws-cursor: var(--seafoam-light);
 }
 
 * {

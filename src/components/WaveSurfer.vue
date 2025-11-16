@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue'
 import WaveSurfer, { type WaveSurferOptions } from 'wavesurfer.js'
-import { useCssVar } from '@/composables/useCssVar'
 import type { GenericPlugin } from 'wavesurfer.js/dist/base-plugin.js'
+import { useCssVar } from '@/composables/useCssVar'
 
-const waveColor = useCssVar('--seafoam-primary')
-const progressColor = useCssVar('--seafoam-dark')
-const cursorColor = useCssVar('--seafoam-light')
+const waveColor = useCssVar('--ws-wave')
+const progressColor = useCssVar('--ws-progress')
+const cursorColor = useCssVar('--ws-cursor')
 
 const {
   url,
@@ -24,6 +24,7 @@ const {
   config?: WaveSurferOptions
   height?: number
   plugins?: GenericPlugin[]
+  // TODO: initial zoom level, use zoom event to update
 }>()
 
 const wavesurfer = ref<WaveSurfer | null>(null)
@@ -34,6 +35,7 @@ function handleClick() {
 }
 
 onMounted(() => {
+  // see https://wavesurfer.xyz/examples/?all-options.js
   wavesurfer.value = WaveSurfer.create({
     container: element.value!,
     dragToSeek: true,
