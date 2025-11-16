@@ -1,27 +1,28 @@
 # vue-wavesurfer
 
-This template should help get you started developing with Vue 3 in Vite.
+Example implimentation of [Wavesurfer.js](https://wavesurfer.xyz/) as a Vue component with plugin configuration in composables. This project is a work-in-progress playground for Vue + Wavesurfer and should serve as a good starting point for extending.
 
-## Recommended IDE Setup
+## Usage
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+See `App.vue` for full usage example and `components/WaveSurfer.vue` for the configuration details. Essentially you just add the component and any desired plugins directly to the plugins array prop. A full config object can be passed as a prop for maximum customization in the component or the spectrogram plugin composable; see `composables/useSpectrogramPlugin.ts`.
 
-## Recommended Browser Setup
+```
+<WaveSurfer
+  url="https://example.com/audio.mp3"
+  :height="300"
+  :plugins="[]"
+/>
+```
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### Styling
 
-## Type Support for `.vue` Imports in TS
+There are 3 Wavesurfer specific variables you can override. See `style.css` for full default theme details.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
+```
+--ws-wave
+--ws-progress
+--ws-cursor
+```
 
 ## Project Setup
 
@@ -51,4 +52,10 @@ pnpm test:unit
 
 ```sh
 pnpm lint
+```
+
+### Format with [Prettier](https://prettier.io/)
+
+```sh
+pnpm format
 ```
