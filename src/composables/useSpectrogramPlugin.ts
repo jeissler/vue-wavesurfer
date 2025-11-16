@@ -3,7 +3,7 @@ import Spectrogram, {
 } from 'wavesurfer.js/dist/plugins/spectrogram.esm.js'
 
 export function useSpectrogramPlugin(options: SpectrogramPluginOptions = {}): {
-  spectrogramPlugin: Spectrogram | null
+  spectrogramPlugin: Spectrogram
 } {
   const spectrogramPlugin = Spectrogram.create({
     labels: true,

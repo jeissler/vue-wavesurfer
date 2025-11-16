@@ -3,18 +3,13 @@ import WaveSurfer from './components/WaveSurfer.vue'
 import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js'
 import { useSpectrogramPlugin } from './composables/useSpectrogramPlugin'
 import { useZoomPlugin } from './composables/useZoomPlugin'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
 const isPlaying = ref(false)
 const { spectrogramPlugin } = useSpectrogramPlugin()
 const { zoomPlugin } = useZoomPlugin()
-const plugins = computed(() => [
-  zoomPlugin,
-  spectrogramPlugin,
-  // Add other plugins directly to the plugins array
-  Minimap.create({ height: 30 }),
-])
+const minimapPlugin = Minimap.create({ height: 30 })
 </script>
 
 <template>
@@ -29,7 +24,7 @@ const plugins = computed(() => [
       :is-playing="isPlaying"
       :url="defaultUrl"
       :media-controls="false"
-      :plugins="plugins"
+      :plugins="[zoomPlugin, minimapPlugin, spectrogramPlugin]"
     />
   </main>
 </template>
@@ -56,5 +51,11 @@ const plugins = computed(() => [
 
 main {
   padding: 1rem 0;
+}
+
+hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--seafoam-dark);
 }
 </style>
