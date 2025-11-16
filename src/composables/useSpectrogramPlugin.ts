@@ -1,15 +1,11 @@
-import { ref, type Ref } from 'vue'
-
 import Spectrogram, {
   type SpectrogramPluginOptions,
 } from 'wavesurfer.js/dist/plugins/spectrogram.esm.js'
 
 export function useSpectrogramPlugin(options: SpectrogramPluginOptions = {}): {
-  spectrogramPlugin: Ref<Spectrogram | null>
+  spectrogramPlugin: Spectrogram | null
 } {
-  const spectrogramPlugin = ref<Spectrogram | null>(null)
-
-  spectrogramPlugin.value = Spectrogram.create({
+  const spectrogramPlugin = Spectrogram.create({
     labels: true,
     height: 200,
     //splitChannels: true,
@@ -47,6 +43,6 @@ export function useSpectrogramPlugin(options: SpectrogramPluginOptions = {}): {
   // TODO: add event listeners for loading state
 
   return {
-    spectrogramPlugin: spectrogramPlugin as Ref<Spectrogram | null>,
+    spectrogramPlugin,
   }
 }
