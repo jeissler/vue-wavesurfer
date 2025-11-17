@@ -11,6 +11,7 @@ const cursorColor = useCssVar('--ws-cursor')
 const {
   url,
   isPlaying = false,
+  clickToPlay = true,
   mediaControls = true,
   autoplay = false,
   height = 200,
@@ -18,7 +19,8 @@ const {
   plugins = [],
 } = defineProps<{
   url: string
-  isPlaying: boolean
+  isPlaying?: boolean
+  clickToPlay?: boolean
   mediaControls?: boolean
   autoplay?: boolean
   config?: WaveSurferOptions
@@ -31,6 +33,7 @@ const wavesurfer = ref<WaveSurfer | null>(null)
 const element = useTemplateRef('ws-element')
 
 function handleClick() {
+  if (!clickToPlay) return
   wavesurfer.value?.playPause()
 }
 

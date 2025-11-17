@@ -3,13 +3,12 @@ import WaveSurfer from './components/WaveSurfer.vue'
 import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js'
 import { useSpectrogramPlugin } from './composables/useSpectrogramPlugin'
 import { useZoomPlugin } from './composables/useZoomPlugin'
-import { ref } from 'vue'
 
 const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
-const isPlaying = ref(false)
 const { spectrogramPlugin } = useSpectrogramPlugin()
 const { zoomPlugin } = useZoomPlugin()
 const minimapPlugin = Minimap.create({ height: 30 })
+// TODO: add click to play toggle
 </script>
 
 <template>
@@ -21,7 +20,6 @@ const minimapPlugin = Minimap.create({ height: 30 })
 
   <main class="container">
     <WaveSurfer
-      :is-playing="isPlaying"
       :url="defaultUrl"
       :media-controls="false"
       :plugins="[zoomPlugin, minimapPlugin, spectrogramPlugin]"
