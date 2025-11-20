@@ -15,6 +15,7 @@ const minimapPlugin = Minimap.create({ height: 30 })
   <header class="header">
     <div class="container">
       <h1>Vue WaveSurfer.js</h1>
+      <a href="https://github.com/jeissler/vue-wavesurfer" target="_blank">GitHub »</a>
     </div>
   </header>
 
@@ -56,5 +57,15 @@ hr {
   margin: 2rem 0;
   border: 0;
   border-top: 1px solid var(--seafoam-dark);
+}
+
+a {
+  color: var(--seafoam-text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 </style>

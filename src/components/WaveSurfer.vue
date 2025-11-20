@@ -81,7 +81,7 @@ watch(
 </script>
 
 <template>
-  <LoadingWaveform v-if="isLoading" :height="height" />
+  <LoadingWaveform v-if="isLoading" />
   <div ref="ws-element" @click="handleClick" />
 </template>
 
