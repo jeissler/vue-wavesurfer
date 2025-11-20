@@ -2,6 +2,8 @@
 
 Example implimentation of [Wavesurfer.js](https://wavesurfer.xyz/) as a Vue component with plugin configuration in composables. This project is a work-in-progress playground for Vue + Wavesurfer and should serve as a good starting point for extending.
 
+**[Live Demo](vue-wavesurfer.netlify.app)** 🚀
+
 ## Usage
 
 See `App.vue` for full usage example and `components/WaveSurfer.vue` for the configuration details. Essentially you just add the component and any desired plugins directly to the plugins array prop. A full config object can be passed as a prop for maximum customization in the component or the spectrogram plugin composable; see `composables/useSpectrogramPlugin.ts`.
