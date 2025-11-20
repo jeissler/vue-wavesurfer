@@ -3,6 +3,7 @@ import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue'
 import WaveSurfer, { type WaveSurferOptions } from 'wavesurfer.js'
 import type { GenericPlugin } from 'wavesurfer.js/dist/base-plugin.js'
 import { useCssVar } from '@/composables/useCssVar'
+import LoadingWaveform from './LoadingWaveform.vue'
 
 const waveColor = useCssVar('--ws-wave')
 const progressColor = useCssVar('--ws-progress')
@@ -30,6 +31,7 @@ const {
   plugins?: GenericPlugin[]
 }>()
 
+const isLoading = ref(true)
 const wavesurfer = ref<WaveSurfer | null>(null)
 const element = useTemplateRef('ws-element')
 
@@ -56,6 +58,7 @@ onMounted(() => {
 
   wavesurfer.value.on('ready', () => {
     if (initialZoom !== 100) wavesurfer.value?.zoom(initialZoom)
+    isLoading.value = false
   })
 })
 
@@ -78,6 +81,7 @@ watch(
 </script>
 
 <template>
+  <LoadingWaveform v-if="isLoading" :height="height" />
   <div ref="ws-element" @click="handleClick" />
 </template>
 
