@@ -15,6 +15,7 @@ const {
   mediaControls = true,
   autoplay = false,
   height = 200,
+  initialZoom = 100,
   config = {},
   plugins = [],
 } = defineProps<{
@@ -25,8 +26,8 @@ const {
   autoplay?: boolean
   config?: WaveSurferOptions
   height?: number
+  initialZoom?: number
   plugins?: GenericPlugin[]
-  // TODO: initial zoom level, use zoom event to update
 }>()
 
 const wavesurfer = ref<WaveSurfer | null>(null)
@@ -51,6 +52,10 @@ onMounted(() => {
     cursorColor,
     ...config,
     plugins,
+  })
+
+  wavesurfer.value.on('ready', () => {
+    if (initialZoom !== 100) wavesurfer.value?.zoom(initialZoom)
   })
 })
 

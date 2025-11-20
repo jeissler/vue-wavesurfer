@@ -21,6 +21,7 @@ const minimapPlugin = Minimap.create({ height: 30 })
   <main class="container">
     <WaveSurfer
       :url="defaultUrl"
+      :initial-zoom="150"
       :media-controls="false"
       :plugins="[zoomPlugin, minimapPlugin, spectrogramPlugin]"
     />
