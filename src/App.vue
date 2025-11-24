@@ -1,23 +1,45 @@
 <script setup lang="ts">
-import { ref, useTemplateRef } from 'vue'
+import { ref, computed, useTemplateRef, onBeforeUnmount } from 'vue'
 import WaveSurfer from './components/WaveSurfer.vue'
 import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js'
 import { useSpectrogramPlugin } from './composables/useSpectrogramPlugin'
 import { useZoomPlugin } from './composables/useZoomPlugin'
 
 const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
-const { spectrogramPlugin } = useSpectrogramPlugin()
-const { zoomPlugin } = useZoomPlugin()
-const minimapPlugin = Minimap.create({ height: 30 })
-
-const isPlaying = ref(false)
 const isReady = ref(false)
 const playerRef = useTemplateRef('ws-player')
+const currentUrl = ref(defaultUrl)
+const plugins = computed(() => {
+  const { spectrogramPlugin } = useSpectrogramPlugin()
+  const { zoomPlugin } = useZoomPlugin()
+  const minimapPlugin = Minimap.create({ height: 30 })
 
-function playPause() {
-  isPlaying.value = !isPlaying.value
-  playerRef.value?.playPause()
+  return currentUrl.value ? [zoomPlugin, minimapPlugin, spectrogramPlugin] : []
+})
+
+function cleanupUrl() {
+  // Clean up previous object URL if it exists (blob URLs start with 'blob:')
+  if (!currentUrl.value.startsWith('blob:')) return
+  URL.revokeObjectURL(currentUrl.value)
 }
+
+function handleFileChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+
+  if (!file) return
+
+  cleanupUrl()
+
+  // Create new object URL for the selected file
+  currentUrl.value = URL.createObjectURL(file)
+
+  isReady.value = false
+}
+
+onBeforeUnmount(() => {
+  cleanupUrl()
+})
 </script>
 
 <template>
@@ -29,15 +51,20 @@ function playPause() {
   </header>
 
   <main class="container">
+    <section v-if="isReady">
+      <button @click="playerRef?.playPause()">Play/Pause</button>
+      <input type="file" accept="audio/*" @change="handleFileChange" />
+    </section>
+
     <WaveSurfer
       ref="ws-player"
-      :url="defaultUrl"
+      :key="currentUrl"
+      :url="currentUrl"
       :initial-zoom="150"
       :media-controls="false"
-      :plugins="[zoomPlugin, minimapPlugin, spectrogramPlugin]"
+      :plugins="plugins"
       @ready="isReady = $event"
     />
-    <button v-if="isReady" @click="playPause">{{ isPlaying ? 'Pause' : 'Play' }}</button>
   </main>
 </template>
 
@@ -81,13 +108,29 @@ a:hover {
   text-decoration: underline;
 }
 
+section {
+  margin-top: 2rem;
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+input[type='file'] {
+  padding: 0.5rem;
+  border: 1px solid var(--seafoam-dark);
+  border-radius: 0.25rem;
+  background: white;
+  cursor: pointer;
+}
+
 button {
-  margin-top: 1rem;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 0.25rem;
   background: var(--seafoam-primary);
   color: var(--seafoam-text);
   cursor: pointer;
+  font-weight: 600;
 }
 </style>
