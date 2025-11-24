@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue'
+import { ref, onMounted, onBeforeUnmount, useTemplateRef } from 'vue'
 import WaveSurfer, { type WaveSurferOptions } from 'wavesurfer.js'
 import type { GenericPlugin } from 'wavesurfer.js/dist/base-plugin.js'
 import { useCssVar } from '@/composables/useCssVar'
@@ -11,7 +11,6 @@ const cursorColor = useCssVar('--ws-cursor')
 
 const {
   url,
-  isPlaying = false,
   clickToPlay = true,
   mediaControls = true,
   autoplay = false,
@@ -21,7 +20,6 @@ const {
   plugins = [],
 } = defineProps<{
   url: string
-  isPlaying?: boolean
   clickToPlay?: boolean
   mediaControls?: boolean
   autoplay?: boolean
@@ -31,13 +29,21 @@ const {
   plugins?: GenericPlugin[]
 }>()
 
+defineExpose({
+  playPause,
+})
+
 const isLoading = ref(true)
 const wavesurfer = ref<WaveSurfer | null>(null)
 const element = useTemplateRef('ws-element')
 
+function playPause() {
+  wavesurfer.value?.playPause()
+}
+
 function handleClick() {
   if (!clickToPlay) return
-  wavesurfer.value?.playPause()
+  playPause()
 }
 
 onMounted(() => {
@@ -67,17 +73,6 @@ onBeforeUnmount(() => {
   wavesurfer.value.destroy()
   wavesurfer.value = null
 })
-
-watch(
-  () => isPlaying,
-  (newVal) => {
-    if (newVal) {
-      wavesurfer.value?.play()
-    } else {
-      wavesurfer.value?.pause()
-    }
-  },
-)
 </script>
 
 <template>
