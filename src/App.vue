@@ -9,16 +9,17 @@ const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
 const isReady = ref(false)
 const playerRef = useTemplateRef('ws-player')
 const currentUrl = ref(defaultUrl)
+// Computed plugins only needed for dynamic re-mounts when URL changes
 const plugins = computed(() => {
   const { spectrogramPlugin } = useSpectrogramPlugin()
   const { zoomPlugin } = useZoomPlugin()
   const minimapPlugin = Minimap.create({ height: 30 })
-
+  // Reference current value to refresh plugins when URL changes
   return currentUrl.value ? [zoomPlugin, minimapPlugin, spectrogramPlugin] : []
 })
 
+// Clean up previous object URL if it exists (blob URLs start with 'blob:')
 function cleanupUrl() {
-  // Clean up previous object URL if it exists (blob URLs start with 'blob:')
   if (!currentUrl.value.startsWith('blob:')) return
   URL.revokeObjectURL(currentUrl.value)
 }
@@ -28,12 +29,9 @@ function handleFileChange(event: Event) {
   const file = target.files?.[0]
 
   if (!file) return
-
   cleanupUrl()
 
-  // Create new object URL for the selected file
   currentUrl.value = URL.createObjectURL(file)
-
   isReady.value = false
 }
 
