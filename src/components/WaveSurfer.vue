@@ -33,6 +33,10 @@ defineExpose({
   playPause,
 })
 
+const emits = defineEmits<{
+  (e: 'ready', isReady: boolean): void
+}>()
+
 const isLoading = ref(true)
 const wavesurfer = ref<WaveSurfer | null>(null)
 const element = useTemplateRef('ws-element')
@@ -65,6 +69,7 @@ onMounted(() => {
   wavesurfer.value.on('ready', () => {
     if (initialZoom !== 100) wavesurfer.value?.zoom(initialZoom)
     isLoading.value = false
+    emits('ready', true)
   })
 })
 

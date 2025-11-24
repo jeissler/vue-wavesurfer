@@ -40,8 +40,6 @@ export function useSpectrogramPlugin(options: SpectrogramPluginOptions = {}): {
     ...options,
   })
 
-  // TODO: add event listeners for loading state
-
   return {
     spectrogramPlugin,
   }

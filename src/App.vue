@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, useTemplateRef } from 'vue'
 import WaveSurfer from './components/WaveSurfer.vue'
 import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js'
 import { useSpectrogramPlugin } from './composables/useSpectrogramPlugin'
@@ -8,7 +9,15 @@ const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
 const { spectrogramPlugin } = useSpectrogramPlugin()
 const { zoomPlugin } = useZoomPlugin()
 const minimapPlugin = Minimap.create({ height: 30 })
-// TODO: add click to play toggle
+
+const isPlaying = ref(false)
+const isReady = ref(false)
+const playerRef = useTemplateRef('playerRef')
+
+function playPause() {
+  isPlaying.value = !isPlaying.value
+  playerRef.value?.playPause()
+}
 </script>
 
 <template>
@@ -21,11 +30,14 @@ const minimapPlugin = Minimap.create({ height: 30 })
 
   <main class="container">
     <WaveSurfer
+      ref="playerRef"
       :url="defaultUrl"
       :initial-zoom="150"
       :media-controls="false"
       :plugins="[zoomPlugin, minimapPlugin, spectrogramPlugin]"
+      @ready="isReady = $event"
     />
+    <button v-if="isReady" @click="playPause">{{ isPlaying ? 'Pause' : 'Play' }}</button>
   </main>
 </template>
 
@@ -67,5 +79,15 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  background: var(--seafoam-primary);
+  color: var(--seafoam-text);
+  cursor: pointer;
 }
 </style>
