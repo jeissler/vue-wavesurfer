@@ -12,7 +12,7 @@ const minimapPlugin = Minimap.create({ height: 30 })
 
 const isPlaying = ref(false)
 const isReady = ref(false)
-const playerRef = useTemplateRef('playerRef')
+const playerRef = useTemplateRef('ws-player')
 
 function playPause() {
   isPlaying.value = !isPlaying.value
@@ -30,7 +30,7 @@ function playPause() {
 
   <main class="container">
     <WaveSurfer
-      ref="playerRef"
+      ref="ws-player"
       :url="defaultUrl"
       :initial-zoom="150"
       :media-controls="false"
