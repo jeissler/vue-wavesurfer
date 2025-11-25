@@ -34,7 +34,8 @@ defineExpose({
 })
 
 const emits = defineEmits<{
-  (e: 'ready', isReady: boolean): void
+  ready: [isReady: boolean]
+  click: []
 }>()
 
 const isLoading = ref(true)
@@ -48,6 +49,7 @@ function playPause() {
 function handleClick() {
   if (!clickToPlay) return
   playPause()
+  emits('click')
 }
 
 onMounted(() => {

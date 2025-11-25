@@ -6,6 +6,7 @@ import { useSpectrogramPlugin } from './composables/useSpectrogramPlugin'
 import { useZoomPlugin } from './composables/useZoomPlugin'
 
 const defaultUrl = '/media/01 - The chant of the Port Keats men.flac'
+const isPlaying = ref(false)
 const isReady = ref(false)
 const playerRef = useTemplateRef('ws-player')
 const currentUrl = ref(defaultUrl)
@@ -17,6 +18,11 @@ const plugins = computed(() => {
   // Reference current value to refresh plugins when URL changes
   return currentUrl.value ? [zoomPlugin, minimapPlugin, spectrogramPlugin] : []
 })
+
+function handlePlayPause() {
+  playerRef.value?.playPause()
+  isPlaying.value = !isPlaying.value
+}
 
 // Clean up previous object URL if it exists (blob URLs start with 'blob:')
 function cleanupUrl() {
@@ -33,6 +39,7 @@ function handleFileChange(event: Event) {
 
   currentUrl.value = URL.createObjectURL(file)
   isReady.value = false
+  isPlaying.value = false
 }
 
 onBeforeUnmount(() => {
@@ -50,7 +57,7 @@ onBeforeUnmount(() => {
 
   <main class="container">
     <section v-if="isReady">
-      <button @click="playerRef?.playPause()">Play/Pause</button>
+      <button @click="handlePlayPause">{{ isPlaying ? 'Pause' : 'Play' }}</button>
       <input type="file" accept="audio/*" @change="handleFileChange" />
     </section>
 
@@ -61,7 +68,8 @@ onBeforeUnmount(() => {
       :initial-zoom="150"
       :media-controls="false"
       :plugins="plugins"
-      @ready="isReady = $event"
+      @ready="isReady = true"
+      @click="isPlaying = !isPlaying"
     />
   </main>
 </template>
